@@ -1,41 +1,63 @@
 #include <string>
 #include <utility>
 #include <vector>
+
 class DHeap {
   // D叉堆
-  const static unsigned D = 2;
-  // pairs.first->element, pairs->second->priority
-  std::vector<std::pair<std::string, int>> pairs;
+  static const unsigned D = 2;                    // 使D为静态常量
+  std::vector<std::pair<std::string, int>> pairs; // 存储元素和它们的优先级
 
 public:
   DHeap() = default;
 
-  // index通常是假定比parent优先级大的children
-  void bubbleUp(std::vector<std::pair<std::string, int>> pairs, int index) {
+  // 从给定索引处向上调整堆
+  void bubbleUp(int index) {
     auto current = pairs[index];
     while (index > 0) {
-      int parentIdx =
-          (parentIdx - 1) / D; // 或者是任何获得其parent的实现方式
+      int parentIdx = (index - 1) / D;
       if (pairs[parentIdx].second < current.second) {
         pairs[index] = pairs[parentIdx];
         index = parentIdx;
-      } else
+      } else {
         break;
+      }
     }
     pairs[index] = current;
   }
 
-  void pushDown(std::vector<std::pair<std::string, int>> pairs, int index = 0){
+  // 从给定索引处向下调整堆
+  void pushDown(int index = 0) {
     auto current = pairs[index];
-    auto currentIdx = index;
-    while(currentIdx < (pairs.size() - 2) / D + 1){ // (|pairs|-2)/D+1是第一个叶子的序号
-      auto [child, childIdx] = highestPriorityChild(currentIdx);
-      if(child.second > current.second){
-        pairs[currentIdx] = child;
-        currentIdx = childIdx;
-      } else
+    int currentIdx = index;
+    while (currentIdx < (pairs.size() - 2) / D + 1) {
+      int childIdx = highestPriorityChild(currentIdx);
+      if (childIdx == -1)
         break;
+      if (pairs[childIdx].second > current.second) {
+        pairs[currentIdx] = pairs[childIdx];
+        currentIdx = childIdx;
+      } else {
+        break;
+      }
     }
     pairs[currentIdx] = current;
+  }
+
+  // 返回最高优先级子节点的索引
+  int highestPriorityChild(const int index) {
+    int firstChildIdx = D * index + 1;
+    if (firstChildIdx >= pairs.size())
+      return -1; // 没有子节点时返回 -1
+
+    int res = firstChildIdx;
+    int priority = pairs[firstChildIdx].second;
+    for (int i = firstChildIdx + 1; i < D * index + D && i < pairs.size();
+         i++) {
+      if (pairs[i].second > priority) {
+        priority = pairs[i].second;
+        res = i;
+      }
+    }
+    return res;
   }
 };
