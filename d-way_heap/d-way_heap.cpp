@@ -14,15 +14,14 @@ public:
   void bubbleup(std::vector<std::pair<std::string, int>> pairs, int index) {
     auto current = pairs[index];
     while (index > 0) {
-      int parentIndex = (parentIndex - 1) / D; // 或者是任何获得其parent的实现方式
-      if (pairs[parentIndex].second < current.second){
+      int parentIndex =
+          (parentIndex - 1) / D; // 或者是任何获得其parent的实现方式
+      if (pairs[parentIndex].second < current.second) {
         pairs[index] = pairs[parentIndex];
         index = parentIndex;
-      }
-      else
+      } else
         break;
     }
     pairs[index] = current;
   }
-
 };
