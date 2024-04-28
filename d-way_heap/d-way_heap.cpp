@@ -7,6 +7,24 @@ class DHeap {
   static const unsigned D = 2;                    // 使D为静态常量
   std::vector<std::pair<std::string, int>> pairs; // 存储元素和它们的优先级
 
+  // 返回最高优先级子节点的索引
+  int highestPriorityChild(const int index) {
+    int firstChildIdx = D * index + 1;
+    if (firstChildIdx >= pairs.size())
+      return -1; // 没有子节点时返回 -1
+
+    int res = firstChildIdx;
+    int priority = pairs[firstChildIdx].second;
+    for (int i = firstChildIdx + 1; i < D * index + D && i < pairs.size();
+         i++) {
+      if (pairs[i].second > priority) {
+        priority = pairs[i].second;
+        res = i;
+      }
+    }
+    return res;
+  }
+
 public:
   DHeap() = default;
 
@@ -43,21 +61,9 @@ public:
     pairs[currentIdx] = current;
   }
 
-  // 返回最高优先级子节点的索引
-  int highestPriorityChild(const int index) {
-    int firstChildIdx = D * index + 1;
-    if (firstChildIdx >= pairs.size())
-      return -1; // 没有子节点时返回 -1
-
-    int res = firstChildIdx;
-    int priority = pairs[firstChildIdx].second;
-    for (int i = firstChildIdx + 1; i < D * index + D && i < pairs.size();
-         i++) {
-      if (pairs[i].second > priority) {
-        priority = pairs[i].second;
-        res = i;
-      }
-    }
-    return res;
+  void insert(std::string element, int priority) {
+    auto p = std::make_pair(element, priority);
+    this->pairs.emplace_back(p);
+    bubbleUp(pairs.size() - 1);
   }
 };
