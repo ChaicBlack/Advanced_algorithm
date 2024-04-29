@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
@@ -65,5 +66,16 @@ public:
     auto p = std::make_pair(element, priority);
     this->pairs.emplace_back(p);
     bubbleUp(pairs.size() - 1);
+  }
+
+  std::string top() {
+    if (this->pairs.empty())
+      throw std::runtime_error("Heap is empty");
+    std::string old = this->pairs.front().first;
+    this->pairs[0] = this->pairs.back();
+    this->pairs.pop_back();
+    if (!this->pairs.empty())
+      this->pushDown();
+    return old;
   }
 };
