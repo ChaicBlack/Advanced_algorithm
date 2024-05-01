@@ -78,4 +78,18 @@ public:
       this->pushDown();
     return old;
   }
+
+  void update(std::string oldvalue, int newPriority) {
+    auto index = std::find_if(this->pairs.begin(), this->pairs.end(),
+                              [&](auto i) { return i.first == oldvalue; });
+    if (index != this->pairs.end()) {
+      if (newPriority > index->second) {
+        bubbleUp(index - this->pairs.begin());
+      } else if (newPriority < index->second) {
+        pushDown(index - this->pairs.begin());
+      }
+    } else {
+      throw std::runtime_error("There are no this value stored here.");
+    }
+  }
 };
