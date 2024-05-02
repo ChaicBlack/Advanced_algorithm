@@ -80,6 +80,8 @@ public:
   }
 
   void update(std::string oldvalue, int newPriority) {
+    // the real implementation will use axiliary data structure to help
+    // perform the search, such as use hashmap to store index infomation
     auto index = std::find_if(this->pairs.begin(), this->pairs.end(),
                               [&](auto i) { return i.first == oldvalue; });
     if (index != this->pairs.end()) {
