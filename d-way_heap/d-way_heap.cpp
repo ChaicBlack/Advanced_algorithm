@@ -94,4 +94,10 @@ public:
       throw std::runtime_error("There are no this value stored here.");
     }
   }
+
+  void heapify() {
+    for (int i = (this->pairs.size() - 1) / D; i >= 0; i--) {
+      pushDown(i);
+    }
+  }
 };
