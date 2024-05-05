@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -7,6 +8,7 @@ class DHeap {
   // D叉堆
   static const unsigned D = 2;                    // 使D为静态常量
   std::vector<std::pair<std::string, int>> pairs; // 存储元素和它们的优先级
+  std::unordered_set<std::string> elements;
 
   // 返回最高优先级子节点的索引
   int highestPriorityChild(const int index) {
@@ -63,6 +65,7 @@ public:
   }
 
   void insert(std::string element, int priority) {
+    this->elements.insert(element);
     auto p = std::make_pair(element, priority);
     this->pairs.emplace_back(p);
     bubbleUp(pairs.size() - 1);
@@ -72,6 +75,7 @@ public:
     if (this->pairs.empty())
       throw std::runtime_error("Heap is empty");
     std::string old = this->pairs.front().first;
+    this->elements.erase(old);
     this->pairs[0] = this->pairs.back();
     this->pairs.pop_back();
     if (!this->pairs.empty())
@@ -99,5 +103,10 @@ public:
     for (int i = (this->pairs.size() - 1) / D; i >= 0; i--) {
       pushDown(i);
     }
+  }
+
+  bool contains(std::string element) {
+    bool b = elements.contains(element);
+    return b;
   }
 };
