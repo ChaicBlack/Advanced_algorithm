@@ -1,13 +1,15 @@
-#include <iostream>
+#include <stdexcept>
 #include <string>
 #include <unordered_set>
 #include <utility>
 #include <vector>
 
 class DHeap {
-  // D叉堆
-  static const unsigned D = 2;                    // 使D为静态常量
-  std::vector<std::pair<std::string, int>> pairs; // 存储元素和它们的优先级
+private:
+  static const unsigned D = 2;
+
+
+  std::vector<std::pair<std::string, int>> pairs;
   std::unordered_set<std::string> elements;
 
   // 返回最高优先级子节点的索引
@@ -111,8 +113,8 @@ public:
   }
 };
 
-std::vector<int> topK(std::vector<int> array, const int k){
-  std::vector<int> heap = DHeap();
+ std::vector<int> topK(std::vector<int> array, const int k){
+  auto heap = DHeap(array);
   for(auto & el : heap){
     if(heap.size() == k && heap.peak() < el){
       heap.top();
@@ -122,4 +124,8 @@ std::vector<int> topK(std::vector<int> array, const int k){
     }
     return heap;
   }
+}
+
+int main(){
+  return 0;
 }
