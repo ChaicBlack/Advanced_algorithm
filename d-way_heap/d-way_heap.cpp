@@ -1,4 +1,4 @@
-#include <stdexcept>
+#include <iostream>
 #include <string>
 #include <unordered_set>
 #include <utility>
@@ -110,3 +110,16 @@ public:
     return b;
   }
 };
+
+std::vector<int> topK(std::vector<int> array, const int k){
+  std::vector<int> heap = DHeap();
+  for(auto & el : heap){
+    if(heap.size() == k && heap.peak() < el){
+      heap.top();
+    }
+    if(heap.size() < k){
+      heap.insert(al);
+    }
+    return heap;
+  }
+}
