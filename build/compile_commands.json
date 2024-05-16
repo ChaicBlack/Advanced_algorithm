@@ -1,6 +1,6 @@
 [
 {
-  "directory": "/Users/zihaoshen/projects/Advanced_algorithm/d-way_heap/build",
+  "directory": "/Users/zihaoshen/projects/Advanced_algorithm/build",
   "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/opt/homebrew/include  -fsanitize=address -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=14.4 -o CMakeFiles/a.dir/d-way_heap.cpp.o -c /Users/zihaoshen/projects/Advanced_algorithm/d-way_heap/d-way_heap.cpp",
   "file": "/Users/zihaoshen/projects/Advanced_algorithm/d-way_heap/d-way_heap.cpp",
   "output": "CMakeFiles/a.dir/d-way_heap.cpp.o"
